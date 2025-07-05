@@ -18,9 +18,11 @@ public class Topico {
 
     private String titulo;
     private String mensaje;
-    private LocalDateTime fecha_creacion;
+    private LocalDateTime fechaCreacion;
     private Boolean status;
     private String curso;
+
+
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,10 +31,10 @@ public class Topico {
 
     public Topico() {
     }
-    public Topico(String titulo, String mensaje, LocalDateTime fecha_creacion, Boolean status, String curso, Usuario autor) {
+    public Topico(String titulo, String mensaje, LocalDateTime fechaCreacion, Boolean status, String curso, Usuario autor) {
         this.titulo = titulo;
         this.mensaje = mensaje;
-        this.fecha_creacion = fecha_creacion;
+        this.fechaCreacion = fechaCreacion;
         this.status = status;
         this.curso = curso;
         this.autor = autor;
@@ -41,7 +43,7 @@ public class Topico {
     public Topico(DatosPostTopico topico) {
         this.titulo = topico.titulo();
         this.mensaje = topico.mensaje();
-        this.fecha_creacion = LocalDateTime.now();
+        this.fechaCreacion = LocalDateTime.now();
         this.status = true; // Assuming new topics are active by default
         this.curso = topico.curso();
     }
@@ -49,6 +51,13 @@ public class Topico {
     public Topico(@NotBlank String titulo, @NotBlank String mensaje, Usuario usuario, @NotBlank String curso) {
     }
 
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDateTime fecha_creacion) {
+        this.fechaCreacion = fecha_creacion;
+    }
 
     public Long getId() {
         return id;
@@ -75,13 +84,6 @@ public class Topico {
     }
 
 
-    public LocalDateTime getFecha() {
-        return fecha_creacion;
-    }
-
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha_creacion = fecha;
-    }
 
     public Boolean getStatus() {
         return status;

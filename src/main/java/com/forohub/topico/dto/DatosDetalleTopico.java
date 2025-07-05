@@ -14,12 +14,12 @@ public record DatosDetalleTopico(
     @NotBlank String  titulo,
     @NotBlank String mensaje,
 
-    @Future LocalDateTime fecha
+    @Future LocalDateTime fecha_creacion
 
 ) {
 
   public DatosDetalleTopico(Topico nuevoTopico) {
-    this(nuevoTopico.getId(), nuevoTopico.getTitulo(), nuevoTopico.getMensaje(), nuevoTopico.getFecha());
+    this(nuevoTopico.getId(), nuevoTopico.getTitulo(), nuevoTopico.getMensaje(), nuevoTopico.getFechaCreacion());
   }
 
 

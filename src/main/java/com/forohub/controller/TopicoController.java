@@ -10,6 +10,10 @@ import com.forohub.usuario.Usuario;
 import com.forohub.usuario.repository.UsuarioRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -58,15 +62,14 @@ public class TopicoController {
 
 
     @GetMapping
-    public ResponseEntity<List<DatosDetalleTopico>> obtenerTopicos() {
-        List<Topico> topicos = topicoRepository.findAll();
-
-
-        List<DatosDetalleTopico> datosDetalleTopicos = topicos.stream()
+    public ResponseEntity<Page<DatosDetalleTopico>> obtenerTopicos(@PageableDefault(size = 10, sort = "fechaCreacion", direction = Sort.Direction.ASC) Pageable paginacion) {
+        Page<Topico> topicosPage = topicoRepository.findAll(paginacion);
+        List<DatosDetalleTopico> datosDetalleTopicos = topicosPage.stream()
                 .map(DatosDetalleTopico::new)
                 .collect(Collectors.toList());
+        Page<DatosDetalleTopico> datosDetalleTopicosPage = topicosPage.map(DatosDetalleTopico::new);
 
-        return ResponseEntity.ok(datosDetalleTopicos);
+        return ResponseEntity.ok(datosDetalleTopicosPage);
     }
 
 
