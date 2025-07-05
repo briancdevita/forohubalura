@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
@@ -24,6 +25,7 @@ public class Usuario implements UserDetails {
 
     public Usuario() {
     }
+
 
     public Usuario(String username, String password) {
         this.username = username;
@@ -39,9 +41,22 @@ public class Usuario implements UserDetails {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(id, usuario.id) && Objects.equals(username, usuario.username) && Objects.equals(password, usuario.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password);
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         return List.of(
-                new SimpleGrantedAuthority("ROLE_USER")
+                new SimpleGrantedAuthority("ROLE_USUARIO")
         );
     }
 
