@@ -15,6 +15,7 @@ Un proyecto REST API desarrollado como parte del desafío del programa ONE de Al
 * **Gestión de Tópicos (CRUD)**:
     * Crear nuevos tópicos.
     * Listar todos los tópicos existentes.
+    * Listar todos los tópicos existentes con **paginación y ordenamiento**.
     * Obtener detalles de un tópico específico.
     * Actualizar tópicos existentes.
     * Eliminar tópicos.
@@ -177,6 +178,17 @@ Respuesta (204 No Content): Tópico eliminado exitosamente.
 Respuesta (404 Not Found): Si el tópico no existe.
 
 Respuesta (403 Forbidden): Si el usuario autenticado no es el autor del tópico.
+
+
+📄 Documentación de la API (Swagger UI)
+Una vez que la aplicación esté corriendo, puedes acceder a la documentación interactiva de la API a través de Swagger UI:
+
+URL: http://localhost:8000/swagger-ui.html
+
+Aquí podrás ver todos los endpoints, sus parámetros, modelos de respuesta, y probar las solicitudes directamente desde el navegador
+
+
+
 
 🤝 Contribuciones
 Las contribuciones son bienvenidas. Si encuentras un error o tienes una mejora, no dudes en abrir un issue o enviar un pull request.
