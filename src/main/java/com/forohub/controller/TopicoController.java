@@ -2,6 +2,7 @@ package com.forohub.controller;
 
 
 import com.forohub.topico.Topico;
+import com.forohub.topico.dto.DatosActualizacionTopico;
 import com.forohub.topico.dto.DatosDetalleTopico;
 import com.forohub.topico.dto.DatosPostTopico;
 import com.forohub.topico.repository.TopicoRepository;
@@ -67,4 +68,44 @@ public class TopicoController {
 
         return ResponseEntity.ok(datosDetalleTopicos);
     }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DatosDetalleTopico> obtenerTopico(@PathVariable Long id) {
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Topico no encontrado con id: " + id));
+
+        DatosDetalleTopico datosDetalleTopico = new DatosDetalleTopico(topico);
+        return ResponseEntity.ok(datosDetalleTopico);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DatosActualizacionTopico> actualizarTopico(@PathVariable Long id, @RequestBody @Valid DatosPostTopico datos) {
+        System.out.println("Datos de actualización del topico: " + datos);
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Topico no encontrado con id: " + id));
+
+
+        topico.setTitulo(datos.titulo());
+        topico.setMensaje(datos.mensaje());
+        topico.setCurso(datos.curso());
+
+        topicoRepository.save(topico);
+
+        return ResponseEntity.ok(new DatosActualizacionTopico(topico));
+    }
+
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> eliminarTopico(@PathVariable Long id) {
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Topico no encontrado con id: " + id));
+
+        topicoRepository.delete(topico);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

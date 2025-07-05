@@ -13,10 +13,9 @@ public record DatosDetalleTopico(
     @NotNull Long id,
     @NotBlank String  titulo,
     @NotBlank String mensaje,
-//    @NotBlank String curso,
-//     Boolean status,
+
     @Future LocalDateTime fecha
-//    DatosAutor autor
+
 ) {
 
   public DatosDetalleTopico(Topico nuevoTopico) {
