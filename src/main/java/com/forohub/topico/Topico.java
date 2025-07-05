@@ -44,7 +44,7 @@ public class Topico {
         this.titulo = topico.titulo();
         this.mensaje = topico.mensaje();
         this.fechaCreacion = LocalDateTime.now();
-        this.status = true; // Assuming new topics are active by default
+        this.status = true;
         this.curso = topico.curso();
     }
 
